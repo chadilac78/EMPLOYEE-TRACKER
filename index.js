@@ -223,14 +223,3 @@ function viewRoles() {
 
 
 
-// function add_department();
-
-// function add_roles();
-
-// function view_departments();
-
-// function view_roles();
-
-// function view_employees();
-
-// function update_employee_roles();
