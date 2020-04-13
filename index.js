@@ -176,39 +176,26 @@ function addRole() {
 
 function viewDepartments() {
     connection.query("SELECT * FROM department", function (err, results) {
-        if (err) throw err;
-        console.log("------------------------------------------")
-        for (var i = 0; i < results.length; i++) {
-            console.log(results[i].id + " | " + results[i].dept_name);
+        if (err) throw err; {
+            console.table(results);
         }
-        console.log("------------------------------------------------");
-
     });
 }
 
 function viewEmployees() {
     connection.query("SELECT * FROM employees", function (err, results) {
         if (err) throw err;
-        console.log("------------------------------------------")
-        for (var i = 0; i < results.length; i++) {
-            console.log(results[i].id + " | " + results[i].first_name + " | " + results[i].last_name + " | " + results[i].role_id + " | " + results[i].manager_id);
+        {
+            console.table(results);
         }
-        console.log("------------------------------------------------");
-
-
     });
 }
 
 function viewRoles() {
     connection.query("SELECT * FROM roles", function (err, results) {
-        if (err) throw err;
-        console.log("------------------------------------------")
-        for (var i = 0; i < results.length; i++) {
-            console.log(results[i].id + " | " + results[i].title + " | " + results[i].salary + " | " + results[i].department_id);
+        if (err) throw err; {
+            console.table(results);
         }
-        console.log("------------------------------------------------");
-
-
     });
 }
 
