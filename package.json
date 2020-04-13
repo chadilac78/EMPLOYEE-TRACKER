@@ -1,0 +1,29 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "Employee Tracker HW",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chadilac78/EMPLOYEE-TRACKER.git"
+  },
+  "keywords": [
+    "Employee",
+    "Tracker"
+  ],
+  "author": "Chadrick Worthan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chadilac78/EMPLOYEE-TRACKER/issues"
+  },
+  "homepage": "https://github.com/chadilac78/EMPLOYEE-TRACKER#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "inquirer": "^7.1.0",
+    "mysql": "^2.18.1",
+    "util": "^0.12.2"
+  }
+}
