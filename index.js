@@ -216,7 +216,7 @@ function updateEmployee() {
                         }
                         return choiceArray;
                     }
-                },
+                }
             ]).then(function (response) {
                 console.log(response)
 
@@ -259,22 +259,7 @@ function updateEmployee() {
 
 
 
-        //         message: "What auction would you like to place a bid in?"
-        //     },
-        //     {
-        //         name: "bid",
-        //         type: "input",
-        //         message: "How much would you like to bid?"
-        //     }
-        // ])
-        // .then(function (answer) {
-        //     // get the information of the chosen item
-        //     var chosenItem;
-        //     for (var i = 0; i < results.length; i++) {
-        //         if (results[i].item_name === answer.choice) {
-        //             chosenItem = results[i];
-        //         }
-        //     }
+
 
 
 
