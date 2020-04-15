@@ -116,8 +116,8 @@ function start() {
             if (answer.action === "View Roles") {
                 viewRoles();
             }
-            if (answer.action === "Update an Employees role") {
-                addEmployees();
+            if (answer.action === "Update an Employees Roles") {
+                updateEmployee();
             }
             if (answer.action === "Nothing, Im done.") {
                 console.log("Thanks for using the employee tracker");
@@ -200,7 +200,81 @@ function viewRoles() {
 }
 
 
+function updateEmployee() {
+    connection.query("SELECT * FROM employees", function (err, results) {
+        if (err) throw err;
+        inquirer
+            .prompt([
+                {
+                    name: "employeeID",
+                    type: "list",
+                    message: "Which employee's role would you like to change?",
+                    choices: function () {
+                        var choiceArray = [];
+                        for (var i = 0; i < results.length; i++) {
+                            choiceArray.push("Employee ID " + results[i].id + " " + results[i].first_name + " " + results[i].last_name + " --- Current Role ID: " + results[i].role_id);
+                        }
+                        return choiceArray;
+                    }
+                },
+            ]).then(function (response) {
+                console.log(response)
 
+
+            }, connection.query('SELECT * FROM roles', function (err, results) {
+                if (err) throw err;
+                inquirer
+                    .prompt([
+
+                        {
+                            name: "Role",
+                            type: "list",
+                            message: "What is the employees new role?",
+                            choices: function () {
+                                var choiceArray = [];
+                                for (var i = 0; i < results.length; i++) {
+                                    choiceArray.push("ID: " + results[i].id + " | " + results[i].title + " | Salary: $" + results[i].salary + " | Department ID: " + results[i].department_id);
+                                }
+                                return choiceArray;
+
+                            }
+                        },
+                    ]).then(function (response) {
+                        console.log(response);
+                        updateEmployeeRole(response);
+                    })
+            })
+            );
+        function updateEmployeeRole(data) {
+            connection.query(`UPDATE employees SET role_id = ${data.Role} WHERE id = ${data.employeeID}`),
+                function (error, res) {
+                    if (error) throw error;
+                };
+            start();
+        }
+    })
+}
+
+
+
+
+
+        //         message: "What auction would you like to place a bid in?"
+        //     },
+        //     {
+        //         name: "bid",
+        //         type: "input",
+        //         message: "How much would you like to bid?"
+        //     }
+        // ])
+        // .then(function (answer) {
+        //     // get the information of the chosen item
+        //     var chosenItem;
+        //     for (var i = 0; i < results.length; i++) {
+        //         if (results[i].item_name === answer.choice) {
+        //             chosenItem = results[i];
+        //         }
+        //     }
 
 
 
