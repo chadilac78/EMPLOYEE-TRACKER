@@ -21,6 +21,7 @@ connection.connect(function (err) {
 });
 
 
+
 var starting_prompts = [{
     name: "action",
     type: "list",
@@ -212,50 +213,57 @@ function updateEmployee() {
                 {
                     name: "employeeID",
                     type: "list",
-                    message: "Which employee's role would you like to change?",
                     choices: function () {
                         var choiceArray = [];
                         for (var i = 0; i < results.length; i++) {
                             choiceArray.push("Employee ID " + results[i].id + " " + results[i].first_name + " " + results[i].last_name + " --- Current Role ID: " + results[i].role_id);
                         }
                         return choiceArray;
-                    }
-                }
-            ]).then(function (response) {
-                console.log(response)
+                    },
+                    message: "Which employee's role would you like to change?"
+                },
+            ]).then(function updateEmployeeRole(data) {
 
 
-            }, connection.query('SELECT * FROM roles', function (err, results) {
-                if (err) throw err;
-                inquirer
-                    .prompt([
+                updateRole(data);
 
-                        {
-                            name: "Role",
-                            type: "list",
-                            message: "What is the employees new role?",
-                            choices: function () {
-                                var choiceArray = [];
-                                for (var i = 0; i < results.length; i++) {
-                                    choiceArray.push("ID: " + results[i].id + " | " + results[i].title + " | Salary: $" + results[i].salary + " | Department ID: " + results[i].department_id);
-                                }
-                                return choiceArray;
+                function updateRole() {
+                    connection.query('SELECT * FROM roles', function (err, results) {
+                        if (err) throw err;
+                        inquirer
+                            .prompt([
+
+                                {
+                                    name: "Role",
+                                    type: "list",
+                                    message: "What is the employees new role?",
+                                    choices: function () {
+                                        var choiceArray = [];
+                                        for (var i = 0; i < results.length; i++) {
+                                            choiceArray.push("ID: " + results[i].id + " | " + results[i].title + " | Salary: $" + results[i].salary + " | Department ID: " + results[i].department_id);
+                                        }
+                                        return choiceArray;
+
+
+                                    }
+                                },
+                            ]).then(function updateEmployeeRole(data) {
+                                console.log(data.Role, data.employeeID);
+
+                                connection.query(`UPDATE employees SET role_id = ${data.Role} WHERE id = ${data.employeeID}`),
+                                    function (error, res) {
+                                        if (error) throw error;
+                                        console.log(data.first_name + "'s role has been updated");
+                                    };
+                                start();
 
                             }
-                        },
-                    ]).then(function (response) {
-                        console.log(response);
-                        updateEmployeeRole(response);
+
+
+                            )
                     })
+                }
             })
-            );
-        function updateEmployeeRole(data) {
-            connection.query(`UPDATE employees SET role_id = ${data.Role} WHERE id = ${data.employeeID}`),
-                function (error, res) {
-                    if (error) throw error;
-                };
-            start();
-        }
     })
 }
 
