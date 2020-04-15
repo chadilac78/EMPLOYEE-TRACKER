@@ -138,10 +138,10 @@ function addEmployees() {
                     role_id: data.role_id,
                     manager_id: data.managers_id
                 })
-
+            start();
         })
-
 }
+
 
 function addDepartment() {
     inquirer.prompt(newDepartmentPrompts)
@@ -149,10 +149,10 @@ function addDepartment() {
             connection.query("INSERT INTO department SET ?",
                 {
                     id: data.department_id,
-                    dept_name: data.departments_name,
+                    name: data.departments_name,
 
                 })
-
+            start();
         })
 
 }
@@ -169,8 +169,9 @@ function addRole() {
 
 
                 })
-
+            start();
         })
+
 
 }
 
@@ -179,6 +180,7 @@ function viewDepartments() {
         if (err) throw err; {
             console.table(results);
         }
+        start();
     });
 }
 
@@ -188,6 +190,7 @@ function viewEmployees() {
         {
             console.table(results);
         }
+        start();
     });
 }
 
@@ -196,6 +199,7 @@ function viewRoles() {
         if (err) throw err; {
             console.table(results);
         }
+        start();
     });
 }
 
