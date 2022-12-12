@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/chadilac78/EMPLOYEE-TRACKER#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "inquirer": "^7.1.0",
     "mysql": "^2.18.1",
     "util": "^0.12.2"
